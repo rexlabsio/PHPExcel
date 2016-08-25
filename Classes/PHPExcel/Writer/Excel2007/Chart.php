@@ -29,6 +29,12 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 {
     protected $calculateCellValues;
 
+	private $labelBackground = 'FFFFFF';
+
+	public function setLabelBackground($colour) {
+		$this->labelBackground = $colour;
+	}
+
     /**
      * Write charts to XML format
      *
@@ -390,6 +396,16 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
         $showLeaderLines = (empty($chartLayout)) ? 1 : $chartLayout->getShowLeaderLines();
         $objWriter->writeAttribute('val', ((empty($showLeaderLines)) ? 0 : 1));
         $objWriter->endElement();
+
+		if($this->labelBackground) {
+			$objWriter->startElement('c:spPr');
+				$objWriter->startElement('a:solidFill');
+					$objWriter->startElement('a:srgbClr');
+						$objWriter->writeAttribute('val', "FFFFFF");
+					$objWriter->endElement();
+				$objWriter->endElement();
+			$objWriter->endElement();
+		}
 
         $objWriter->endElement();
     }

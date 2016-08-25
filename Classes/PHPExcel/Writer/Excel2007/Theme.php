@@ -113,10 +113,9 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 
     /**
      * Map of core colours
-     * @static    array of string
      *
      */
-    private static $colourScheme = array(
+    private $colourScheme = array(
         'dk2'        => '1F497D',
         'lt2'        => 'EEECE1',
         'accent1'    => '4F81BD',
@@ -125,9 +124,23 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
         'accent4'    => '8064A2',
         'accent5'    => '4BACC6',
         'accent6'    => 'F79646',
-        'hlink'        => '0000FF',
-        'folHlink'    => '800080',
+        'hlink'      => '0000FF',
+        'folHlink'   => '800080',
     );
+
+	/**
+	 * Replaces colour scheme elements
+	 *
+	 * @param $colours
+	 *
+	 * @return array
+	 */
+	public function setColourScheme($colours) {
+		foreach($colours as $label => $colour) {
+			$this->colourScheme[$label] = $colour;
+		}
+		return $this->colourScheme;
+	}
             
     /**
      * Write theme to XML format

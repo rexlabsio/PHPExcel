@@ -172,6 +172,16 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
         }
     }
 
+    public function setTheme($scheme) {
+		$theme = $this->getWriterPart("Theme");
+		$theme->setColourScheme($scheme);
+	}
+
+	public function setChartLabelColour($colour) {
+		$chart = $this->getWriterPart('Chart');
+		$chart->setLabelBackground($colour);
+	}
+
     /**
      * Save PHPExcel to file
      *
