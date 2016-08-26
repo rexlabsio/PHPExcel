@@ -139,6 +139,14 @@ class PHPExcel_Chart_Layout
      */
     private $showLeaderLines;
 
+	/**
+	 *  label format
+	 * The format of the number in the label
+	 *
+	 * @var string
+	 */
+	private $labelFormat;
+
 
     /**
      * Create a new PHPExcel_Chart_Layout
@@ -483,4 +491,27 @@ class PHPExcel_Chart_Layout
         $this->showLeaderLines = $value;
         return $this;
     }
+
+	/**
+	 * Get label format
+	 *
+	 * @return boolean
+	 */
+	public function getLabelFormat()
+	{
+		return $this->labelFormat;
+	}
+
+
+	/**
+	 * Set label format
+	 *
+	 * @param string $value
+	 * @return PHPExcel_Chart_Layout
+	 */
+	public function setLabelFormat($value)
+	{
+		$this->labelFormat = $value;
+		return $this;
+	}
 }
