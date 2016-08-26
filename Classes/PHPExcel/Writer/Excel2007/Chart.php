@@ -1421,7 +1421,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
             $layoutTarget = $layout->getLayoutTarget();
             if (!is_null($layoutTarget)) {
-                $objWriter->startElement('c:layoutTarget');
+                $objWriter->startElement('c:dLblPos');
                 $objWriter->writeAttribute('val', $layoutTarget);
                 $objWriter->endElement();
             }
