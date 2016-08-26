@@ -361,15 +361,13 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
     private function writeDataLabels($objWriter, $chartLayout)
     {
         $objWriter->startElement('c:dLbls');
-
-
+		
 		$layoutTarget = $chartLayout->getLayoutTarget();
 		if (!is_null($layoutTarget)) {
-			$objWriter->startElement('c:layoutTarget');
+			$objWriter->startElement('c:dLblPos');
 			$objWriter->writeAttribute('val', $layoutTarget);
 			$objWriter->endElement();
 		}
-
 
 		$objWriter->startElement('c:showLegendKey');
         $showLegendKey = (empty($chartLayout)) ? 0 : $chartLayout->getShowLegendKey();
