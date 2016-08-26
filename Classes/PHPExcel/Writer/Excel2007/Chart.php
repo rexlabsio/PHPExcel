@@ -362,7 +362,16 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
     {
         $objWriter->startElement('c:dLbls');
 
-        $objWriter->startElement('c:showLegendKey');
+
+		$layoutTarget = $chartLayout->getLayoutTarget();
+		if (!is_null($layoutTarget)) {
+			$objWriter->startElement('c:layoutTarget');
+			$objWriter->writeAttribute('val', $layoutTarget);
+			$objWriter->endElement();
+		}
+
+
+		$objWriter->startElement('c:showLegendKey');
         $showLegendKey = (empty($chartLayout)) ? 0 : $chartLayout->getShowLegendKey();
         $objWriter->writeAttribute('val', ((empty($showLegendKey)) ? 0 : 1));
         $objWriter->endElement();
@@ -1418,13 +1427,6 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
         if (!is_null($layout)) {
             $objWriter->startElement('c:manualLayout');
-
-            $layoutTarget = $layout->getLayoutTarget();
-            if (!is_null($layoutTarget)) {
-                $objWriter->startElement('c:dLblPos');
-                $objWriter->writeAttribute('val', $layoutTarget);
-                $objWriter->endElement();
-            }
 
             $xMode = $layout->getXMode();
             if (!is_null($xMode)) {
