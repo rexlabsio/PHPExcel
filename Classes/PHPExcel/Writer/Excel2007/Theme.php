@@ -869,7 +869,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
      */
     private function writeColourScheme($objWriter)
     {
-        foreach (self::$colourScheme as $colourName => $colourValue) {
+        foreach ($this->colourScheme as $colourName => $colourValue) {
             $objWriter->startElement('a:'.$colourName);
 
                 $objWriter->startElement('a:srgbClr');

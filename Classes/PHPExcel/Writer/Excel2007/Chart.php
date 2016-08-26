@@ -401,7 +401,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 			$objWriter->startElement('c:spPr');
 				$objWriter->startElement('a:solidFill');
 					$objWriter->startElement('a:srgbClr');
-						$objWriter->writeAttribute('val', "FFFFFF");
+						$objWriter->writeAttribute('val', $this->labelBackground);
 					$objWriter->endElement();
 				$objWriter->endElement();
 			$objWriter->endElement();
