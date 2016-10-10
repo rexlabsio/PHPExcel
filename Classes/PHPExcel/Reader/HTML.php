@@ -110,7 +110,33 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                     ),
                 ),
             ),
-        ), //    Bottom border
+        ), //	Bottom border
+		'strong' => [
+			'font' => [
+				'bold' => true,
+			],
+		],
+		'em' => [
+			'font' => [
+				'italic' => true,
+			],
+		],
+		'ins' => [
+			'font' => [
+				'underline' => PHPExcel_Style_Font::UNDERLINE_SINGLE,
+			],
+		],
+		'code' => [
+			'font' => [
+				'name' => 'Courier New'
+			],
+		],
+		'blockquote' => [
+			'font' => [
+				'name' => 'Courier',
+				'italic' => true,
+			],
+		],
     );
 
     protected $rowspan = array();
@@ -271,15 +297,22 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                     case 'em':
                     case 'strong':
                     case 'b':
-//                        echo 'STYLING, SPAN OR DIV<br />';
-                        if ($cellContent > '') {
-                            $cellContent .= ' ';
-                        }
-                        $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-                        if ($cellContent > '') {
-                            $cellContent .= ' ';
-                        }
-//                        echo 'END OF STYLING, SPAN OR DIV<br />';
+					case 'ins':
+					case 'code':
+					case 'blockquote':
+						if ($cellContent > '') {
+							$this->_flushCell($sheet, $column, $row, $cellContent);
+							$row++;
+						}
+						$this->_processDomElement($child, $sheet, $row, $column, $cellContent);
+						$this->_flushCell($sheet, $column, $row, $cellContent);
+	
+						if (isset($this->_formats[$child->nodeName])) {
+							$sheet->getStyle($column . $row)->applyFromArray($this->_formats[$child->nodeName]);
+						}
+	
+						$row++;
+						$column = 'A';
                         break;
                     case 'hr':
                         $this->flushCell($sheet, $column, $row, $cellContent);
