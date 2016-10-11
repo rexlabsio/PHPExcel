@@ -261,8 +261,10 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
                     $this->writePlotGroup($plotGroup, $chartType, $objWriter, $catIsMultiLevelSeries, $valIsMultiLevelSeries, $plotGroupingType, $pSheet);
                 }
             }
-
-            $this->writeDataLabels($objWriter, $layout);
+	
+			if (!empty($layout)) {
+				$this->writeDataLabels($objWriter, $layout);
+			}
 
             if ($chartType === PHPExcel_Chart_DataSeries::TYPE_LINECHART) {
                 //    Line only, Line3D can't be smoothed

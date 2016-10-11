@@ -308,8 +308,8 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
 						$this->processDomElement($child, $sheet, $row, $column, $cellContent);
 						$this->flushCell($sheet, $column, $row, $cellContent);
 	
-						if (isset($this->_formats[$child->nodeName])) {
-							$sheet->getStyle($column . $row)->applyFromArray($this->_formats[$child->nodeName]);
+						if (isset($this->formats[$child->nodeName])) {
+							$sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
 						}
 	
 						$row++;
