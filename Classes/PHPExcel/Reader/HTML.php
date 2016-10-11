@@ -252,7 +252,8 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
         $cellContent = (string) '';
     }
 
-    protected function processDomElement(DOMNode $element, $sheet, &$row, &$column, &$cellContent, $format = null)
+    protected function processDomElement(DOMNode $element, PHPExcel_Worksheet $sheet, &$row, &$column, &$cellContent,
+										 $format = null)
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
@@ -301,11 +302,11 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
 					case 'code':
 					case 'blockquote':
 						if ($cellContent > '') {
-							$this->_flushCell($sheet, $column, $row, $cellContent);
+							$this->flushCell($sheet, $column, $row, $cellContent);
 							$row++;
 						}
-						$this->_processDomElement($child, $sheet, $row, $column, $cellContent);
-						$this->_flushCell($sheet, $column, $row, $cellContent);
+						$this->processDomElement($child, $sheet, $row, $column, $cellContent);
+						$this->flushCell($sheet, $column, $row, $cellContent);
 	
 						if (isset($this->_formats[$child->nodeName])) {
 							$sheet->getStyle($column . $row)->applyFromArray($this->_formats[$child->nodeName]);
